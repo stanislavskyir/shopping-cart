@@ -2,6 +2,7 @@ package dev.stanislavskyi.shoppingcart.service.cart;
 
 import dev.stanislavskyi.shoppingcart.exceptions.ResourceNotFoundException;
 import dev.stanislavskyi.shoppingcart.model.Cart;
+import dev.stanislavskyi.shoppingcart.model.User;
 import dev.stanislavskyi.shoppingcart.repository.CartItemRepository;
 import dev.stanislavskyi.shoppingcart.repository.CartRepository;
 import dev.stanislavskyi.shoppingcart.service.product.IProductService;

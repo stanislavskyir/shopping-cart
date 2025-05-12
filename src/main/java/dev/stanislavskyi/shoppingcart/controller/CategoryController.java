@@ -25,7 +25,7 @@ public class CategoryController {
             List<Category> categories = categoryService.getAllCategories();
             return  ResponseEntity.ok(new ApiResponse("Found!", categories));
         } catch (Exception e) {
-           return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error:", INTERNAL_SERVER_ERROR));
+            return ResponseEntity.status(INTERNAL_SERVER_ERROR).body(new ApiResponse("Error:", INTERNAL_SERVER_ERROR));
         }
     }
 
@@ -35,7 +35,7 @@ public class CategoryController {
             Category theCategory = categoryService.addCategory(name);
             return  ResponseEntity.ok(new ApiResponse("Success", theCategory));
         } catch (AlreadyExistsException e) {
-           return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));
+            return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
     }
 
@@ -81,3 +81,4 @@ public class CategoryController {
     }
 
 }
+

@@ -24,15 +24,13 @@ import java.util.Optional;
 public class ProductService implements IProductService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
-    private final ImageRepository imageRepository;
-
     private final ModelMapper modelMapper;
+    private final ImageRepository imageRepository;
 
     @Override
     public Product addProduct(AddProductRequest request) {
         if (productExists(request.getName(), request.getBrand())){
-            throw new AlreadyExistsException(request.getBrand() + " " +request.getName() +
-                    " already exists, you may update this product instead!");
+            throw new AlreadyExistsException(request.getBrand() +" "+request.getName()+ " already exists, you may update this product instead!");
         }
         Category category = Optional.ofNullable(categoryRepository.findByName(request.getCategory().getName()))
                 .orElseGet(() -> {
@@ -61,14 +59,14 @@ public class ProductService implements IProductService {
     @Override
     public Product getProductById(Long id) {
         return productRepository.findById(id)
-                .orElseThrow(()-> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found!"));
     }
 
-  @Override
+    @Override
     public void deleteProductById(Long id) {
         productRepository.findById(id)
                 .ifPresentOrElse(productRepository::delete,
-                        () -> {throw new ResourceNotFoundException("Product not found");});
+                        () -> {throw new ResourceNotFoundException("Product not found!");});
     }
 
 
@@ -77,7 +75,7 @@ public class ProductService implements IProductService {
         return productRepository.findById(productId)
                 .map(existingProduct -> updateExistingProduct(existingProduct,request))
                 .map(productRepository :: save)
-                .orElseThrow(()-> new ResourceNotFoundException("Product not found"));
+                .orElseThrow(()-> new ResourceNotFoundException("Product not found!"));
     }
 
     private Product updateExistingProduct(Product existingProduct, ProductUpdateRequest request) {
@@ -130,7 +128,7 @@ public class ProductService implements IProductService {
 
     @Override
     public List<ProductDto> getConvertedProducts(List<Product> products) {
-      return products.stream().map(this::convertToDto).toList();
+        return products.stream().map(this::convertToDto).toList();
     }
 
     @Override
