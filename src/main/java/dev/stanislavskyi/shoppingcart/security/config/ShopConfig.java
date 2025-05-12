@@ -33,7 +33,6 @@ public class ShopConfig {
     private static final List<String> SECURED_URLS =
             List.of("/api/v1/carts/**", "/api/v1/cartItems/**");
 
-
     @Bean
     public ModelMapper modelMapper() {
         return new ModelMapper();
