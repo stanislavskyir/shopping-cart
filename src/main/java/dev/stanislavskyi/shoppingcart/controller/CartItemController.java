@@ -1,8 +1,13 @@
 package dev.stanislavskyi.shoppingcart.controller;
 
+import dev.stanislavskyi.shoppingcart.exceptions.ResourceNotFoundException;
+import dev.stanislavskyi.shoppingcart.model.Cart;
+import dev.stanislavskyi.shoppingcart.model.User;
 import dev.stanislavskyi.shoppingcart.response.ApiResponse;
 import dev.stanislavskyi.shoppingcart.service.cart.ICartItemService;
 import dev.stanislavskyi.shoppingcart.service.cart.ICartService;
+import dev.stanislavskyi.shoppingcart.service.user.IUserService;
+import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
