@@ -8,6 +8,7 @@ import dev.stanislavskyi.shoppingcart.request.AddProductRequest;
 import dev.stanislavskyi.shoppingcart.request.ProductUpdateRequest;
 import dev.stanislavskyi.shoppingcart.response.ApiResponse;
 import dev.stanislavskyi.shoppingcart.service.product.IProductService;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -23,6 +24,10 @@ import static org.springframework.http.HttpStatus.*;
 public class ProductController {
     private final IProductService productService;
 
+    @Operation(
+            summary = "Get all products",
+            description = "This method retrieves a list of all the products in the system"
+    )
     @GetMapping("/all")
     public ResponseEntity<ApiResponse> getAllProducts() {
         List<Product> products = productService.getAllProducts();

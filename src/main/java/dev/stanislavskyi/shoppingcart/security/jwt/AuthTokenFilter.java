@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.List;
 
 public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
@@ -22,10 +23,23 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     @Autowired
     private ShopUserDetailsService userDetailsService;
 
+
+    private static final List<String> SWAGGER_URLS = List.of(
+            "/swagger-ui/**", "/swagger-ui.html", "/v3/api-docs/**"
+    );
+
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
                                     @NonNull HttpServletResponse response,
                                     @NonNull FilterChain filterChain) throws ServletException, IOException {
+
+        // Пропустить фильтрацию для Swagger URL
+        String requestURI = request.getRequestURI();
+        if (SWAGGER_URLS.stream().anyMatch(requestURI::startsWith)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         try {
             String jwt = parseJwt(request);
             if (StringUtils.hasText(jwt) && jwtUtils.validateToken(jwt)) {
