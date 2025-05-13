@@ -1,11 +1,14 @@
 package dev.stanislavskyi.shoppingcart.service.user;
 
+import dev.stanislavskyi.shoppingcart.data.RoleRepository;
 import dev.stanislavskyi.shoppingcart.dto.UserDto;
 import dev.stanislavskyi.shoppingcart.exceptions.AlreadyExistsException;
 import dev.stanislavskyi.shoppingcart.exceptions.ResourceNotFoundException;
+import dev.stanislavskyi.shoppingcart.model.Role;
 import dev.stanislavskyi.shoppingcart.model.User;
 import dev.stanislavskyi.shoppingcart.repository.UserRepository;
 import dev.stanislavskyi.shoppingcart.request.CreateUserRequest;
+import dev.stanislavskyi.shoppingcart.request.RoleUpdateRequest;
 import dev.stanislavskyi.shoppingcart.request.UserUpdateRequest;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -20,6 +23,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserService implements IUserService {
     private final UserRepository userRepository;
+    private final RoleRepository roleRepository;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
 
@@ -71,6 +75,18 @@ public class UserService implements IUserService {
         String email = authentication.getName();
         return userRepository.findByEmail(email);
     }
+
+    @Override
+    public User assignRoleToUser(Long id, RoleUpdateRequest request) {
+        User user = getUserById(id);
+
+        Role role = roleRepository.findByName(request.getRole()).orElseThrow(
+                () -> new ResourceNotFoundException("Role not found!"));
+
+        user.getRoles().add(role);
+        return userRepository.save(user);
+    }
+
 
 }
 

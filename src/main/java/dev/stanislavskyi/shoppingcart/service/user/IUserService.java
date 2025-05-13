@@ -3,6 +3,7 @@ package dev.stanislavskyi.shoppingcart.service.user;
 import dev.stanislavskyi.shoppingcart.dto.UserDto;
 import dev.stanislavskyi.shoppingcart.model.User;
 import dev.stanislavskyi.shoppingcart.request.CreateUserRequest;
+import dev.stanislavskyi.shoppingcart.request.RoleUpdateRequest;
 import dev.stanislavskyi.shoppingcart.request.UserUpdateRequest;
 
 public interface IUserService {
@@ -15,4 +16,6 @@ public interface IUserService {
     UserDto convertUserToDto(User user);
 
     User getAuthenticatedUser();
+
+    User assignRoleToUser(Long id, RoleUpdateRequest request);
 }
