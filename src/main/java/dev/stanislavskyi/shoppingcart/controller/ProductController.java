@@ -52,7 +52,7 @@ public class ProductController {
         try {
             Product theProduct = productService.addProduct(product);
             ProductDto productDto = productService.convertToDto(theProduct);
-            return ResponseEntity.ok(new ApiResponse("Add product success!", productDto));
+            return ResponseEntity.ok(new ApiResponse("success", productDto));
         } catch (AlreadyExistsException e) {
             return ResponseEntity.status(CONFLICT).body(new ApiResponse(e.getMessage(), null));
         }
@@ -63,7 +63,7 @@ public class ProductController {
         try {
             Product theProduct = productService.updateProduct(request, productId);
             ProductDto productDto = productService.convertToDto(theProduct);
-            return ResponseEntity.ok(new ApiResponse("Update product success!", productDto));
+            return ResponseEntity.ok(new ApiResponse("success", productDto));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
@@ -74,7 +74,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> deleteProduct(@PathVariable Long productId) {
         try {
             productService.deleteProductById(productId);
-            return ResponseEntity.ok(new ApiResponse("Delete product success!", productId));
+            return ResponseEntity.ok(new ApiResponse("success", productId));
         } catch (ResourceNotFoundException e) {
             return ResponseEntity.status(NOT_FOUND).body(new ApiResponse(e.getMessage(), null));
         }
@@ -154,7 +154,7 @@ public class ProductController {
     public ResponseEntity<ApiResponse> countProductsByBrandAndName(@RequestParam String brand, @RequestParam String name) {
         try {
             var productCount = productService.countProductsByBrandAndName(brand, name);
-            return ResponseEntity.ok(new ApiResponse("Product count!", productCount));
+            return ResponseEntity.ok(new ApiResponse("success", productCount));
         } catch (Exception e) {
             return ResponseEntity.ok(new ApiResponse(e.getMessage(), null));
         }

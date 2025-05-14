@@ -46,12 +46,12 @@ public class ProductServiceTest {
     public void givenValidRequest_whenAddProduct_thenReturnSavedProduct(){
         // given
         AddProductRequest addProductRequest = new AddProductRequest();
-        addProductRequest.setName("IPhone X");
+        addProductRequest.setName("Apple watch X");
         addProductRequest.setBrand("Apple");
         addProductRequest.setPrice(BigDecimal.TEN);
         addProductRequest.setInventory(10);
         addProductRequest.setDescription("This is a test product");
-        Category category = new Category("Phones");
+        Category category = new Category("Watch");
         addProductRequest.setCategory(category);
 
 
@@ -62,7 +62,7 @@ public class ProductServiceTest {
 
         when(categoryRepository.save(any(Category.class))).thenReturn(category);
 
-        Product product = new Product("iPhone", "Apple", BigDecimal.TEN, 10, "Latest iPhone", category);
+        Product product = new Product("Apple watch X", "Apple", BigDecimal.TEN, 10, "Latest iPhone", category);
         when(productRepository.save(any(Product.class))).thenReturn(product);
 
         // when
@@ -70,7 +70,7 @@ public class ProductServiceTest {
 
         // then
         assertNotNull(result);
-        assertEquals("iPhone", result.getName());
+        assertEquals("Apple watch X", result.getName());
         assertEquals("Apple", result.getBrand());
 
     }

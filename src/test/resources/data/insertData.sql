@@ -1,0 +1,1 @@
+INSERT INTO user (email, first_name, last_name , password) VALUES ( 'test123@gmail.com', 'Test', 'TestLastName', '$2a$04$xb3AGo43ibESGvux4FoC2.mr2amOsBV0fx9EvT8FeoSfsVFpolYc2');
